@@ -1,13 +1,15 @@
+
 import http from '@ohos.net.http';
 interface Message { role: string; content: string; }
-interface Choice { message?: { content?: string }; }
+interface MessageContent { content?: string; }
+interface Choice { message?: MessageContent; }
 interface OpenRouterResponse { choices?: Array<Choice>; }
 
 export class OpenRouterClient {
   private readonly endpoint: string = 'https://openrouter.ai/api/v1/chat/completions';
   private readonly model: string = 'openrouter/free';
   // Set this value locally in your DevEco workspace. Never commit a real key.
-  private readonly apiKey: string = 'YOUR_OPENROUTER_API_KEY';
+  private readonly apiKey: string = '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';
 
   async generate(prompt: string): Promise<string> {
     console.info('[PetRecipe][OpenRouter] START endpoint=' + this.endpoint + ' model=' + this.model);
@@ -62,7 +64,7 @@ export class OpenRouterClient {
       return content;
     } catch (error) {
       console.error('[PetRecipe][OpenRouter] REQUEST FAILED ' + String(error));
-      throw error;
+      throw new Error(String(error));
     } finally {
       client.destroy();
       console.info('[PetRecipe][OpenRouter] client destroyed');

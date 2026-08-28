@@ -30,7 +30,7 @@ export class RecipeService {
       return validated;
     } catch (error) {
       console.error('[PetRecipe][RecipeService] GENERATION FAILED ' + String(error));
-      throw error;
+      throw new Error(String(error));
     }
   }
 
