@@ -1,0 +1,9 @@
+{
+  "foods": [
+    { "name": "chocolate", "risk": "high", "reason": "theobromine toxicity" },
+    { "name": "grape", "risk": "high", "reason": "potential toxicity" },
+    { "name": "onion", "risk": "high", "reason": "red blood cell damage risk" },
+    { "name": "garlic", "risk": "high", "reason": "toxicity risk" },
+    { "name": "xylitol", "risk": "high", "reason": "dangerous sweetener" }
+  ]
+}
