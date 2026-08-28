@@ -21,7 +21,7 @@ export class OpenRouterClient {
   private readonly model: string = 'openrouter/free';
 
   // Set this value locally in your DevEco workspace. Do not commit a real API key.
-  private readonly apiKey: string = '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';
+  private readonly apiKey: string = 'YOUR_OPENROUTER_API_KEY';
 
   async generate(prompt: string): Promise<string> {
     if (this.apiKey === 'YOUR_OPENROUTER_API_KEY') {
