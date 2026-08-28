@@ -1,0 +1,14 @@
+{
+  "dog": {
+    "adult": {
+      "focus": ["quality protein", "energy balance", "minerals", "fatty acids"],
+      "recipe_type": "supplementary"
+    }
+  },
+  "cat": {
+    "adult": {
+      "focus": ["animal protein", "taurine", "hydration", "essential nutrients"],
+      "recipe_type": "supplementary"
+    }
+  }
+}
