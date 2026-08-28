@@ -1,23 +1,46 @@
+import http from '@ohos.net.http';
+
 export class OpenRouterClient {
+  private readonly endpoint: string = 'https://openrouter.ai/api/v1/chat/completions';
+  private readonly model: string = 'openrouter/free';
+
+  // Set this value locally in your DevEco workspace. Do not commit a real API key.
+  private readonly apiKey: string = 'YOUR_OPENROUTER_API_KEY';
+
   async generate(prompt: string): Promise<string> {
-    return JSON.stringify({
-      status: 'warning',
-      name: '鸡肉南瓜营养碗',
-      type: 'supplementary',
-      ingredients: [
-        { name: '熟鸡胸肉', amount: '50g' },
-        { name: '南瓜', amount: '30g' },
-        { name: '胡萝卜', amount: '20g' }
-      ],
-      steps: [
-        '将鸡胸肉彻底煮熟并去骨',
-        '南瓜和胡萝卜蒸熟后切碎',
-        '混合食材并充分冷却后喂食'
-      ],
-      warnings: [
-        '当前为 MVP Mock AI，不调用网络',
-        '辅助餐不替代完整宠粮或兽医建议'
-      ]
-    });
+    if (this.apiKey === 'YOUR_OPENROUTER_API_KEY') {
+      throw new Error('OpenRouter API key is not configured');
+    }
+    const client = http.createHttp();
+    try {
+      const response = await client.request(this.endpoint, {
+        method: http.RequestMethod.POST,
+        header: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.apiKey}`,
+          'HTTP-Referer': 'https://github.com/lyjuestc/hmdemo1',
+          'X-Title': 'Pet Recipe AI MVP'
+        },
+        extraData: JSON.stringify({
+          model: this.model,
+          messages: [
+            { role: 'system', content: 'You are a careful pet nutrition assistant. Return valid JSON only. The recipe is supplementary food, not a replacement for complete pet food or veterinary care.' },
+            { role: 'user', content: prompt }
+          ],
+          temperature: 0.3
+        })
+      });
+      if (response.responseCode < 200 || response.responseCode >= 300) {
+        throw new Error(`OpenRouter HTTP ${response.responseCode}`);
+      }
+      const body = JSON.parse(response.result as string);
+      const content = body?.choices?.[0]?.message?.content;
+      if (typeof content !== 'string' || content.length === 0) {
+        throw new Error('OpenRouter returned no content');
+      }
+      return content;
+    } finally {
+      client.destroy();
+    }
   }
 }
