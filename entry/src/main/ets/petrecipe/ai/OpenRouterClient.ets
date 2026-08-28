@@ -24,7 +24,7 @@ export class OpenRouterClient {
       const payload: string = JSON.stringify({
         model: this.model,
         messages: [
-          { role: 'system', content: 'You are a careful pet nutrition assistant. Return valid JSON only. The recipe is supplementary food, not a replacement for complete pet food or veterinary care.' } as Message,
+          { role: 'system', content: 'You are a careful pet nutrition assistant. Return valid JSON only. The recipe is supplementary food, not a replacement for complete pet food or veterinary care.用中文回答' } as Message,
           { role: 'user', content: prompt } as Message
         ],
         temperature: 0.3
