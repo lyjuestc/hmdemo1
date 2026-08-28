@@ -70,7 +70,7 @@ struct Index {
     }
     this.screen = 'history';
   }
-
+  @Builder
   private buildHome(): void {
     Column({ space: 18 }) {
       Text('🐾 Pet Recipe AI').fontSize(30).fontWeight(FontWeight.Bold)
@@ -81,7 +81,7 @@ struct Index {
       Button('历史食谱').width('90%').onClick(() => this.showHistory())
     }.padding(24).width('100%')
   }
-
+  @Builder
   private buildPet(): void {
     Column({ space: 12 }) {
       Text('宠物档案').fontSize(28).fontWeight(FontWeight.Bold)
@@ -98,7 +98,7 @@ struct Index {
       Text(this.status).fontSize(14)
     }.padding(24).width('100%')
   }
-
+  @Builder
   private buildGenerate(): void {
     Column({ space: 20 }) {
       Text('🍲 AI 食谱生成').fontSize(28).fontWeight(FontWeight.Bold)
@@ -108,7 +108,7 @@ struct Index {
       Button('返回首页').onClick(() => this.screen = 'home')
     }.padding(24).width('100%')
   }
-
+  @Builder
   private buildDetail(): void {
     Column({ space: 14 }) {
       Text('食谱详情').fontSize(28).fontWeight(FontWeight.Bold)
@@ -125,7 +125,7 @@ struct Index {
       Button('返回首页').onClick(() => this.screen = 'home')
     }.padding(24).width('100%')
   }
-
+  @Builder
   private buildHistory(): void {
     Column({ space: 18 }) {
       Text('历史食谱').fontSize(28).fontWeight(FontWeight.Bold)
@@ -134,19 +134,18 @@ struct Index {
       Button('返回首页').onClick(() => this.screen = 'home')
     }.padding(24).width('100%')
   }
-
   build() {
     Scroll() {
       if (this.screen === 'home') {
-        this.buildHome();
+        this.buildHome()
       } else if (this.screen === 'pet') {
-        this.buildPet();
+        this.buildPet()
       } else if (this.screen === 'generate') {
-        this.buildGenerate();
+        this.buildGenerate()
       } else if (this.screen === 'detail') {
-        this.buildDetail();
+        this.buildDetail()
       } else {
-        this.buildHistory();
+        this.buildHistory()
       }
     }.width('100%').height('100%')
   }

@@ -1,13 +1,28 @@
+
+interface Ingredient {
+  name: string;
+  amount: string;
+}
+
+interface RecipeData {
+  status: string;
+  name: string;
+  type: string;
+  ingredients: Ingredient[];
+  steps: string[];
+  warnings: string[];
+}
+
 export class OpenRouterClient {
   async generate(prompt: string): Promise<string> {
-    return JSON.stringify({
+    const recipeData: RecipeData = {
       status: 'warning',
       name: '鸡肉南瓜营养碗',
       type: 'supplementary',
       ingredients: [
-        { name: '熟鸡胸肉', amount: '50g' },
-        { name: '南瓜', amount: '30g' },
-        { name: '胡萝卜', amount: '20g' }
+        { name: '熟鸡胸肉', amount: '50g' } as Ingredient,
+        { name: '南瓜', amount: '30g' } as Ingredient,
+        { name: '胡萝卜', amount: '20g' } as Ingredient
       ],
       steps: [
         '将鸡胸肉彻底煮熟并去骨',
@@ -18,6 +33,7 @@ export class OpenRouterClient {
         '当前为 MVP Mock AI，不调用网络',
         '辅助餐不替代完整宠粮或兽医建议'
       ]
-    });
+    };
+    return JSON.stringify(recipeData);
   }
 }
